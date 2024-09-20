@@ -16,6 +16,7 @@ public class Apple : MonoBehaviour
         transform.Translate(0,-9.8f*Time.deltaTime,0);
         if(transform.position.y < -9){
             print("basketloss");
+            Game.instance.RemoveBasket();
             Destroy(gameObject);
         }
     }

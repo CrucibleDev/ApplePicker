@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class basket : MonoBehaviour
+public class Basket : MonoBehaviour
 {
     [SerializeField] int score = 0;
     // Start is called before the first frame update
@@ -24,6 +24,7 @@ public class basket : MonoBehaviour
         print(other.gameObject.tag);
         if(other.gameObject.tag == "Apple"){
             print("COLLISOIN");
+            Game.instance.AddScore();
             Destroy(other.gameObject);
             score++;
         }

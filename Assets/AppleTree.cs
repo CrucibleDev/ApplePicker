@@ -4,29 +4,36 @@ using UnityEngine;
 public class AppleTree : MonoBehaviour
 {
     [SerializeField] GameObject AppleInstance;
-    int dir = 1;
+	[SerializeField] float speed = 1f;
+	[SerializeField] float leftAndRightEdge = 13f;
+	[SerializeField] float chanceToChangeDirections = 0.1f;
+	[SerializeField] float secondsBetweenAppleDrops = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(MyCoroutine());
+        InvokeRepeating( "DropApple", 2f, secondsBetweenAppleDrops );
     }
 
     // Update is called once per frame
     void Update()
     {
-        int rand = Random.Range(0,100);
-        if(rand < 10){
-            dir *= -1;
-        }
-        transform.Translate(10 * Time.deltaTime * dir,0,0);
+        transform.Translate(speed * Time.deltaTime,0,0);
+        if (transform.position.x < -leftAndRightEdge ) {
+			speed *= -1;
+		} else if (transform.position.x > leftAndRightEdge ) {
+			speed *= -1;
+		} 
     }
 
-    IEnumerator MyCoroutine()
-    {
-        while(true){
-            yield return new WaitForSeconds(0.5f);
-            GameObject newApple = Instantiate(AppleInstance);
-            newApple.transform.position = transform.position;
-        }
+    void FixedUpdate() {
+        Debug.Log(Random.value);
+        if (Random.value < chanceToChangeDirections) {
+			speed *= -1;
+		}
+    }
+
+    void DropApple(){
+        GameObject newApple = Instantiate(AppleInstance);
+        newApple.transform.position = transform.position;
     }
 }

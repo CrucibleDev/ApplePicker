@@ -1742,7 +1742,7 @@ MonoBehaviour:
   roundText: {fileID: 812829599}
   basketPoint: {fileID: 1746720472}
   basketPrefab: {fileID: 6737971013846488140, guid: 942f5cf6b4e73804faf4755a5cd196b5, type: 3}
-  numBaskets: 3
+  numBaskets: 4
   basketOffset: 0.6
 --- !u!1 &2017850003
 GameObject:

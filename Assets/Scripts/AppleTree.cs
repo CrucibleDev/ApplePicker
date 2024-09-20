@@ -5,11 +5,14 @@ public class AppleTree : MonoBehaviour
 {
     [SerializeField] GameObject AppleInstance;
     [SerializeField] GameObject BadInstance;
-	[SerializeField] float speed = 1f;
+	public float speed = 6f;
 	[SerializeField] float leftAndRightEdge = 13f;
-	[SerializeField] float chanceToChangeDirections = 0.1f;
+	public float chanceToChangeDirections = 0.01f;
 	[SerializeField] float secondsBetweenAppleDrops = 0.5f;
-    [SerializeField] float badDropChance = 0.1f;
+    public int dropSpeed = -6;
+    public float badDropChance = 0.1f;
+
+    private int appleCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,11 @@ public class AppleTree : MonoBehaviour
 		} else if (transform.position.x > leftAndRightEdge ) {
 			speed *= -1;
 		} 
+
+        if(appleCounter == 30){
+            appleCounter = 0;
+            Game.instance.NextRound();
+        }
     }
 
     void FixedUpdate() {
@@ -34,12 +42,15 @@ public class AppleTree : MonoBehaviour
     }
 
     void DropApple(){
+        appleCounter++;
         if (Random.value < badDropChance){
             GameObject newBad = Instantiate(BadInstance);
             newBad.transform.position = transform.position;
+            newBad.GetComponent<Apple>().speed = dropSpeed;
             return;
         }
         GameObject newApple = Instantiate(AppleInstance);
         newApple.transform.position = transform.position;
+        newApple.GetComponent<Apple>().speed = dropSpeed;
     }
 }

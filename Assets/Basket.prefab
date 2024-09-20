@@ -127,4 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6be209feada0c48807bfc271878157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  appleSound: {fileID: 8300000, guid: 843412c7b2638054abb8ecf6a1bb54dd, type: 3}
+  twigSound: {fileID: 8300000, guid: a5ee2eaf91689e54d9ea39259214c3d3, type: 3}

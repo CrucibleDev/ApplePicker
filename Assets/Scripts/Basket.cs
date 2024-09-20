@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Basket : MonoBehaviour
 {
+    [SerializeField] AudioClip appleSound;
+    [SerializeField] AudioClip twigSound;
+
     // Update is called once per frame
     void Update()
     {
@@ -16,10 +19,12 @@ public class Basket : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag == "Apple"){
             Game.instance.AddScore();
+            Game.instance.PlaySound(appleSound);
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "Twig"){
             Game.instance.endGame();
+            Game.instance.PlaySound(twigSound);
             Destroy(other.gameObject);
         }
     }

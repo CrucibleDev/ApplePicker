@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
 
     [Header("Game Data")]
     [SerializeField] AppleTree appleTree;
+    [SerializeField] AudioSource audioSource;
 
     [Header("UI Data")]
     [SerializeField] GameObject gameOverUI;
@@ -24,6 +25,7 @@ public class Game : MonoBehaviour
     GameObject[] baskets;
     private int basketIndex = 0;
     private int score = 0;
+    private int round = 1;
 
     private void Awake()
     {
@@ -53,8 +55,26 @@ public class Game : MonoBehaviour
     }
 
     public void AddScore(){
-        score++;
+        score += 1 * round * (baskets.Length - basketIndex);
         scoreText.text = "Score: " + score;
+    }
+
+    public void PlaySound(AudioClip clipToPlay){
+        audioSource.clip = clipToPlay;
+        audioSource.Play();
+    }
+
+    public void NextRound(){
+        if(round == 4){
+            endGame();
+        }
+        appleTree.dropSpeed -= 3;
+        appleTree.speed += 2;
+        appleTree.chanceToChangeDirections += 0.005f;
+        appleTree.badDropChance += 0.02f;
+
+        round++;
+        roundText.text = "Round: " + round;
     }
 
     public void RemoveBasket(){
@@ -67,6 +87,7 @@ public class Game : MonoBehaviour
 
     public void endGame(){
         //Pause
+        Destroy(basketPoint);
         gameOverUI.SetActive(true);
         Time.timeScale = 0;
     }

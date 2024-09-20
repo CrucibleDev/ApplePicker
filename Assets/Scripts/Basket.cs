@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Basket : MonoBehaviour
 {
-    [SerializeField] int score = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -21,12 +14,13 @@ public class Basket : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        print(other.gameObject.tag);
         if(other.gameObject.tag == "Apple"){
-            print("COLLISOIN");
             Game.instance.AddScore();
             Destroy(other.gameObject);
-            score++;
+        }
+        if(other.gameObject.tag == "Twig"){
+            Game.instance.endGame();
+            Destroy(other.gameObject);
         }
     }
 }

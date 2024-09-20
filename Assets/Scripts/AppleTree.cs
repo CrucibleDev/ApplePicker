@@ -4,14 +4,16 @@ using UnityEngine;
 public class AppleTree : MonoBehaviour
 {
     [SerializeField] GameObject AppleInstance;
+    [SerializeField] GameObject BadInstance;
 	[SerializeField] float speed = 1f;
 	[SerializeField] float leftAndRightEdge = 13f;
 	[SerializeField] float chanceToChangeDirections = 0.1f;
 	[SerializeField] float secondsBetweenAppleDrops = 0.5f;
+    [SerializeField] float badDropChance = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating( "DropApple", 2f, secondsBetweenAppleDrops );
+        InvokeRepeating( "DropApple", 1f, secondsBetweenAppleDrops );
     }
 
     // Update is called once per frame
@@ -26,13 +28,17 @@ public class AppleTree : MonoBehaviour
     }
 
     void FixedUpdate() {
-        Debug.Log(Random.value);
         if (Random.value < chanceToChangeDirections) {
 			speed *= -1;
 		}
     }
 
     void DropApple(){
+        if (Random.value < badDropChance){
+            GameObject newBad = Instantiate(BadInstance);
+            newBad.transform.position = transform.position;
+            return;
+        }
         GameObject newApple = Instantiate(AppleInstance);
         newApple.transform.position = transform.position;
     }
